@@ -18,7 +18,7 @@
 
       <a-form-model ref="checkForm" :model="formData" :rules="formRule">
 
-        <a-row type="flex" justify="space-between">
+<!--        <a-row >-->
 <!--          <a-col :span="10">-->
 <!--            <a-upload-->
 <!--                :action="$global.uploadUrl"-->
@@ -37,55 +37,61 @@
 <!--              <img alt="预览图片失败" class="wid100" :src="formData.AvatarUrl"/>-->
 <!--            </a-modal>-->
 <!--          </a-col>-->
-          <a-col :span="13">
-            <a-row type="flex" align="middle">
-<!--              <a-col :span="24" :flex="1">-->
+<!--          <a-col >-->
+<!--            <a-row type="flex" align="left">-->
+<!--              <a-col >-->
 <!--                <a-form-model-item label="昵称" prop="NickName" :labelCol="{span:4}" :wrapperCol="{span:20}">-->
 <!--                  <a-input v-model="formData.NickName"/>-->
 <!--                </a-form-model-item>-->
 <!--              </a-col>-->
-              <a-col :span="24">
-                <a-form-model-item label="姓名" prop="UserName" :labelCol="{span:4}" :wrapperCol="{span:20}">
+<!--              <a-col :span="100">-->
+                <a-form-model-item label="姓名" prop="name" :labelCol="{span:3}" :wrapperCol="{span:10}">
                   <a-input v-model="formData.name" />
                 </a-form-model-item>
-              </a-col>
-            </a-row>
-          </a-col>
+<!--              </a-col>-->
+<!--            </a-row>-->
+<!--          </a-col>-->
 
-        </a-row>
-<!--        <a-row type="flex" justify="space-between">-->
-        <a-col :span="13">
-        <a-row type="flex" align="middle">
-          <a-col :span="24">
-            <a-form-model-item label="身份证" prop="TelephoneNumber" :labelCol="{span:4}" :wrapperCol="{span:20}">
-              <a-input v-model="formData.idNo"/>
-            </a-form-model-item>
-          </a-col>
-<!--          <a-col :span="11">-->
-<!--            <a-form-model-item label="邮箱">-->
-<!--              <a-input v-model="formData.Email"/>-->
-<!--            </a-form-model-item>-->
-<!--          </a-col>-->
-        </a-row>
-        </a-col>
-<!--        <a-row type="flex" justify="space-between">-->
-<!--          <a-col :span="11">-->
-<!--            <a-form-model-item label="生日">-->
-<!--              <a-date-picker valueFormat="YYYY-MM-DD" v-model="formData.Birthdate"/>-->
-<!--            </a-form-model-item>-->
-<!--          </a-col>-->
-<!--          <a-col :span="11">-->
-<!--            <a-form-model-item label="性别">-->
-<!--              <a-radio-group v-model="formData.Sex">-->
-<!--                <a-radio :value="1">男</a-radio>-->
-<!--                <a-radio :value="2">女</a-radio>-->
-<!--              </a-radio-group>-->
-<!--            </a-form-model-item>-->
-<!--          </a-col>-->
 <!--        </a-row>-->
-<!--        <a-form-model-item label="地址">-->
-<!--          <a-input v-model="formData.OrgAddress"/>-->
-<!--        </a-form-model-item>-->
+<!--        <a-row>-->
+          <a-form-model-item label="身份证号码" prop="idNo" :labelCol="{span:3}" :wrapperCol="{span:15}">
+                          <a-input v-model="formData.idNo"/>
+                        </a-form-model-item>
+<!--        </a-row>-->
+<!--        <a-row type="flex" justify="space-between">-->
+<!--        <a-col :span="100">-->
+<!--        <a-row type="flex" align="left">-->
+<!--          <a-col :span="24">-->
+<!--            <a-form-model-item label="身份证号码" prop="IdNo" :labelCol="{span:5}" :wrapperCol="{span:20}">-->
+<!--              <a-input v-model="formData.idNo"/>-->
+<!--            </a-form-model-item>-->
+<!--          </a-col>-->
+<!--&lt;!&ndash;          <a-col :span="11">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a-form-model-item label="邮箱">&ndash;&gt;-->
+<!--&lt;!&ndash;              <a-input v-model="formData.Email"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            </a-form-model-item>&ndash;&gt;-->
+<!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
+<!--        </a-row>-->
+<!--        </a-col>-->
+<!--&lt;!&ndash;        <a-row type="flex" justify="space-between">&ndash;&gt;-->
+<!--&lt;!&ndash;          <a-col :span="11">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a-form-model-item label="生日">&ndash;&gt;-->
+<!--&lt;!&ndash;              <a-date-picker valueFormat="YYYY-MM-DD" v-model="formData.Birthdate"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            </a-form-model-item>&ndash;&gt;-->
+<!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
+<!--&lt;!&ndash;          <a-col :span="11">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a-form-model-item label="性别">&ndash;&gt;-->
+<!--&lt;!&ndash;              <a-radio-group v-model="formData.Sex">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a-radio :value="1">男</a-radio>&ndash;&gt;-->
+<!--&lt;!&ndash;                <a-radio :value="2">女</a-radio>&ndash;&gt;-->
+<!--&lt;!&ndash;              </a-radio-group>&ndash;&gt;-->
+<!--&lt;!&ndash;            </a-form-model-item>&ndash;&gt;-->
+<!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
+<!--&lt;!&ndash;        </a-row>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a-form-model-item label="地址">&ndash;&gt;-->
+<!--&lt;!&ndash;          <a-input v-model="formData.OrgAddress"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </a-form-model-item>&ndash;&gt;-->
+<!--        </a-row>-->
       </a-form-model>
 
       <div class="drawerFoot">
@@ -96,7 +102,7 @@
           <a-button type="primary" @click="submitData" v-show="isAdmin">
             提交
           </a-button>
-          <a-button type="danger" @click="submitData" v-show="isAdmin">
+          <a-button type="danger" @click="deleteData" v-show="isAdmin">
             删除
           </a-button>
         </div>
@@ -126,11 +132,12 @@ export default {
       previewImgList: [],
       pagination: {
         current: this.$store.state.pagination.page,
-        pageSize: 1,//this.$store.state.pagination.size,
+        pageSize: this.$store.state.pagination.size,
         total: 0,
         simple: true
       },
       formData: {
+        id: '',
         name: '',
         idNo: '',
       }
@@ -144,13 +151,21 @@ export default {
     submitData() {
       this.$refs.checkForm.validate(valid => {
         if (valid) {
-          this.$global.toast('提交成功')
+          let a = this.formData;
+          const url = this.formData.id ? 'worker/update' : 'worker/create';
+          this.$http.postHttp(url, this.formData, (res) => {
+            this.$global.toast('提交成功');
+            this.getData(this.pagination.current - 1);
+          })
           console.log(this.formData);
         } else {
           console.log('error submit!!');
           return false;
         }
       });
+    },
+    deleteData() {
+
     },
     handleTableChange(pagination, filters, sorter) {
       console.log(pagination);
@@ -214,27 +229,21 @@ export default {
   }
 }
 const formRule = {
-  NickName: [{
+  name: [{
     required: true,
-    message: "昵称不能为空",
-    trigger: 'change'
-  }],
-  UserName: [{
-    required: true,
-    message: "用户名不能为空",
+    message: "姓名不能为空",
+    trigger: 'blur'
+  }, {
+    min: 2,
+    max: 5,
+    message: '姓名长度需在2到5个字符',
     trigger: 'blur'
   },
-    {
-      min: 2,
-      max: 5,
-      message: '姓名长度需在2到5个字符',
-      trigger: 'blur'
-    },
   ],
-  TelephoneNumber: [{
+  idNo: [{
     required: true,
-    message: "手机号不能为空",
-    trigger: 'change'
+    message: "身份证号码不能为空",
+    trigger: 'blur'
   }],
 }
 const tbMainHead = [
@@ -243,7 +252,7 @@ const tbMainHead = [
     dataIndex: 'name',
   },
   {
-    title: '身份证',
+    title: '身份证号码',
     dataIndex: 'idNo',
   }
 ];
