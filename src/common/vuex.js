@@ -23,6 +23,7 @@ const store = new Vuex.Store({
         },
         actPage: 0,
         isOpenRemember: true,
+        isAdmin: false
     },
     getters: {},
     mutations: {
@@ -58,7 +59,6 @@ const store = new Vuex.Store({
                     // canClose:obj.path!='/Home'
                 })
             }
-
         },
         hideLoad(state) {
             state.gLoad = false;
@@ -66,6 +66,16 @@ const store = new Vuex.Store({
         showLoad(state) {
             state.gLoad = true;
         },
+        setAdmin(state) {
+            const loginUserStr = sessionStorage.getItem("loginUser");
+            if (!loginUserStr) {
+                state.isAdmin = false;
+                return;
+            }
+            const loginUser = JSON.parse(loginUserStr);
+            const role = loginUser.role;
+            state.isAdmin = (role === 'ADMIN');
+        }
     },
     actions: {
         initApp(context) {

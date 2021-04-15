@@ -33,7 +33,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-
+    store.commit("setAdmin");
     // console.log(to)
     const loginUserStr = sessionStorage.getItem("loginUser");
     let loginUser = {};

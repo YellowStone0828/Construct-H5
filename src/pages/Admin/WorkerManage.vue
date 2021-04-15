@@ -9,7 +9,8 @@
              :data-source="tbMainData"
              :columns="tbMainHead"
              :pagination="pagination"
-             :customRow="rowClick">
+             :customRow="rowClick"
+             @change="handleTableChange">
 
       <img class="tableImg" :onerror="$global.defaultImg" slot="pic" slot-scope="text" :src="text"/>
     </a-table>
@@ -45,7 +46,7 @@
 <!--              </a-col>-->
               <a-col :span="24">
                 <a-form-model-item label="姓名" prop="UserName" :labelCol="{span:4}" :wrapperCol="{span:20}">
-                  <a-input v-model="formData.name"/>
+                  <a-input v-model="formData.name" />
                 </a-form-model-item>
               </a-col>
             </a-row>
@@ -92,8 +93,11 @@
           <a-button @click="isDrawerShow=false">
             取消
           </a-button>
-          <a-button type="primary" @click="submitData">
+          <a-button type="primary" @click="submitData" v-show="isAdmin">
             提交
+          </a-button>
+          <a-button type="danger" @click="submitData" v-show="isAdmin">
+            删除
           </a-button>
         </div>
       </div>
@@ -104,7 +108,14 @@
 
 <script>
 
+import {mapState} from "vuex";
+
 export default {
+  computed: {
+    ...mapState([
+      'isAdmin',
+    ]),
+  },
   data() {
     return {
       tbMainData: [],
@@ -115,18 +126,19 @@ export default {
       previewImgList: [],
       pagination: {
         current: this.$store.state.pagination.page,
-        pageSize: '2',//this.$store.state.pagination.size,
+        pageSize: 1,//this.$store.state.pagination.size,
         total: 0,
+        simple: true
       },
       formData: {
         name: '',
         idNo: '',
-      },
+      }
     }
   },
   mounted() {
     this.getData();
-    this.tbMainHead.push()
+    this.tbMainHead.push();
   },
   methods: {
     submitData() {
@@ -140,13 +152,21 @@ export default {
         }
       });
     },
-    getData() {
-
-      this.$http.getHttp(`worker/find?page=${this.pagination.current}&size=${this.pagination.pageSize}`, {}, (res) => {
+    handleTableChange(pagination, filters, sorter) {
+      console.log(pagination);
+      const pager = { ...this.pagination };
+      pager.current = pagination.current - 1;
+      this.pagination = pager;
+      this.getData(pager.current);
+    },
+    getData(page = 0, size = this.pagination.pageSize) {
+      this.$http.getHttp(`worker/find?page=${page}&size=${size}`, {}, (res) => {
         console.log("返回结果", res);
         if (res.data) {
           //因为接口不开放了，我们假设数据如下
           this.pagination.total = res.data.totalElements;
+          this.pagination.current = page + 1;
+          this.pagination.pageSize = size;
           this.tbMainData = res.data.content;
         }
 
@@ -227,60 +247,6 @@ const tbMainHead = [
     dataIndex: 'idNo',
   }
 ];
-const virtualData = [
-  {
-    AvatarUrl: "",
-    Birthdate: "2020-07-30T00:00:00",
-    Email: "jone@xu.com",
-    IsBindingWechat: 1,
-    NickName: "李哈哈",
-    OrgAddress: "",
-    OrganizationName: "大运公司",
-    Sex: 0,
-    TelephoneNumber: "13764908888",
-    UserID: 10,
-    UserName: "李浩天",
-  },
-  {
-    AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJHowzSCODAQpk8XVwJ6I0xSlbcxl9CicG8MF2v5wbOwDPg1lrtHicGeAX9jnuj7djNFSgyzQyjaHTA/132",
-    Birthdate: "2020-07-21T00:00:00",
-    Email: "",
-    IsBindingWechat: 0,
-    NickName: "丽莎",
-    OrgAddress: "市中心第一中学",
-    OrganizationName: "丽莎科技有限公司",
-    Sex: 0,
-    TelephoneNumber: "18621067777",
-    UserID: 5,
-    UserName: "李丽莎",
-  },
-  {
-    AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/I1R7oGkDmibXqx3OZpu0dGvlEH7egFlDo30iaqKFPiasnqKMJ4Fkuy53KyuNcQI7Ww1O6azR4gibSufjsURt6icZwUQ/132",
-    Birthdate: "2020-07-21T00:00:00",
-    Email: "",
-    IsBindingWechat: 0,
-    NickName: "浩南",
-    OrgAddress: "123",
-    OrganizationName: "昊天有限公司",
-    Sex: 0,
-    TelephoneNumber: "18621066666",
-    UserID: 14,
-    UserName: "张浩",
-  },
-  {
-    AvatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/w9q1wKzzzNmBh6OgfAORibicSgFCA85RaljPeQrEiauJNokPtSVlbZRSzf19S6JUia0ZAax8HS0niaGq7FOXicNS22ZA/132",
-    Birthdate: "2020-07-21T00:00:00",
-    Email: "124124@139.com",
-    IsBindingWechat: 0,
-    NickName: "神罚",
-    OrgAddress: "街道办事处",
-    OrganizationName: "无言有限公司",
-    Sex: 0,
-    TelephoneNumber: "18621065555",
-    UserID: 12,
-    UserName: "周生生",
-  }
-]
 
 </script>
 
