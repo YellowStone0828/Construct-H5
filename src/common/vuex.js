@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import commonConstants from "../constants/commonConstants";
 // import Http from './https.js';
 // import Global from './global.js';
 Vue.use(Vuex);
@@ -17,10 +18,6 @@ const store = new Vuex.Store({
             // 	canClose:false
             // }
         ],
-        pagination: {
-            page: 0,
-            size: 30
-        },
         actPage: 0,
         isOpenRemember: true,
         isAdmin: false
@@ -67,14 +64,14 @@ const store = new Vuex.Store({
             state.gLoad = true;
         },
         setAdmin(state) {
-            const loginUserStr = sessionStorage.getItem("loginUser");
+            const loginUserStr = sessionStorage.getItem(commonConstants.sessionStorageKey.loginUser);
             if (!loginUserStr) {
                 state.isAdmin = false;
                 return;
             }
             const loginUser = JSON.parse(loginUserStr);
             const role = loginUser.role;
-            state.isAdmin = (role === 'ADMIN');
+            state.isAdmin = (role === commonConstants.role.admin);
         }
     },
     actions: {

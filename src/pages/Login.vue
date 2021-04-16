@@ -32,6 +32,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import commonConstants from '@/constants/commonConstants';
 
 export default {
   data() {
@@ -65,7 +66,7 @@ export default {
               username: data.data.loginName,
               role: data.data.role
             }
-            sessionStorage.setItem("loginUser", JSON.stringify(loginUser));
+            sessionStorage.setItem(commonConstants.sessionStorageKey.loginUser, JSON.stringify(loginUser));
             this.$router.push({
               path: '/Home'
             });

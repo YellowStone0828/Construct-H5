@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter) // 注册vue-router
 import store from '@/common/vuex.js' //全局仓储
 import Global from '@/common/global.js' //全局封装方法
+import commonConstants from '@/constants/commonConstants';
 
 const router = new VueRouter({
     mode: 'history',
@@ -35,7 +36,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     store.commit("setAdmin");
     // console.log(to)
-    const loginUserStr = sessionStorage.getItem("loginUser");
+    const loginUserStr = sessionStorage.getItem(commonConstants.sessionStorageKey.loginUser);
     let loginUser = {};
     loginUserStr && (loginUser = JSON.parse(loginUserStr));
 
@@ -47,7 +48,6 @@ router.beforeEach((to, from, next) => {
         next()
     } else if (to.name === 'Home' || to.meta.title) {
         store.commit('pageJump', to)
-        store.state.pagination.page = 0;
         next()
     } else {
         //通知一下

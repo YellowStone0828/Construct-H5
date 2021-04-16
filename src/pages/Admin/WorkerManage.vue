@@ -102,7 +102,7 @@
           <a-button type="primary" @click="submitData" v-show="isAdmin">
             提交
           </a-button>
-          <a-button type="danger" @click="deleteData" v-show="isAdmin">
+          <a-button type="danger" @click="deleteData" v-show="isAdmin && formData.id">
             删除
           </a-button>
         </div>
@@ -115,6 +115,7 @@
 <script>
 
 import {mapState} from "vuex";
+import commonConstants from "../../constants/commonConstants";
 
 export default {
   computed: {
@@ -131,8 +132,8 @@ export default {
       isImgPreview: false,
       previewImgList: [],
       pagination: {
-        current: this.$store.state.pagination.page,
-        pageSize: this.$store.state.pagination.size,
+        current: commonConstants.pagination.page,
+        pageSize: commonConstants.pagination.size,
         total: 0,
         simple: true
       },
@@ -165,7 +166,19 @@ export default {
       });
     },
     deleteData() {
-
+      const self = this;
+      this.$confirm({
+        title: '确认删除?',
+        content: h => <div style="color:red;">你确认要删除该员工么？</div>,
+        onOk() {
+          self.$http.postHttp(`worker/delete/${self.formData.id}`, {}, (res) => {
+            self.$global.toast('删除成功');
+            self.getData(self.pagination.current - 1);
+          })
+        },
+        onCancel() {
+        },
+      });
     },
     handleTableChange(pagination, filters, sorter) {
       console.log(pagination);
