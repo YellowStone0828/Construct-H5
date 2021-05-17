@@ -67,6 +67,25 @@
 	}
 
 }
+.searchArea{
+	padding: 0 3% 0 3%;
+	.searchButtonArea{
+		text-align:right;
+	}
+	.searchButton{
+		//bottom: 0;
+		right: 3%;
+		//borderRadius: 0 0 4px 4px;
+		margin-bottom: 10px;
+		background-color: #45cc68;
+		color: #ffffff;
+		border-color:#45cc68;
+	}
+}
+
+.contentGrid{
+	padding: 0 3% 0 3%;
+}
 // ::-webkit-scrollbar {
 //   display: none; /* Chrome Safari */
 //   // width:0;

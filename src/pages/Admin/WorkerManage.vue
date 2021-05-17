@@ -2,8 +2,29 @@
   <div>
     <div class="topToolBar">
       <a-button class="btn_success" @click="showAddNew">新增</a-button>
-      <!-- <a-button type="primary" icon="import">导入</a-button> -->
     </div>
+    <div class="searchArea">
+      <a-form-model ref="searchForm" :model="searchData">
+        <a-row>
+          <a-col :span="10">
+            <a-form-model-item label="姓名" prop="name" :labelCol="{span:3}" :wrapperCol="{span:17}">
+              <a-input v-model="searchData.name"/>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="10">
+            <a-form-model-item label="身份证号码" prop="idNo" :labelCol="{span:4}" :wrapperCol="{span:16}">
+              <a-input v-model="searchData.idNo"/>
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+      </a-form-model>
+      <div class="searchButtonArea">
+        <a-button class="searchButton" @click="findData">
+          查找员工
+        </a-button>
+      </div>
+    </div>
+    <div class="contentGrid">
     <a-table bordered
              :row-key="record => record.id"
              :data-source="tbMainData"
@@ -14,6 +35,7 @@
 
       <img class="tableImg" :onerror="$global.defaultImg" slot="pic" slot-scope="text" :src="text"/>
     </a-table>
+    </div>
     <a-drawer title="编辑" width="50%" destroyOnClose :visible="isDrawerShow" @close="isDrawerShow=false">
 
       <a-form-model ref="checkForm" :model="formData" :rules="formRule">
@@ -141,6 +163,10 @@ export default {
         id: '',
         name: '',
         idNo: '',
+      },
+      searchData: {
+        name: '',
+        idNo: ''
       }
     }
   },
@@ -188,10 +214,10 @@ export default {
       this.getData(pager.current);
     },
     getData(page = 0, size = this.pagination.pageSize) {
-      this.$http.getHttp(`worker/find?page=${page}&size=${size}`, {}, (res) => {
+      console.log("param", page, size, this.searchData.idNo);
+      this.$http.getHttp(`worker/find?page=${page}&size=${size}&name=${this.searchData.name}&idNo=${this.searchData.idNo}`, {}, (res) => {
         console.log("返回结果", res);
         if (res.data) {
-          //因为接口不开放了，我们假设数据如下
           this.pagination.total = res.data.totalElements;
           this.pagination.current = page + 1;
           this.pagination.pageSize = size;
@@ -199,6 +225,9 @@ export default {
         }
 
       })
+    },
+    findData(event, page, size) {
+      this.getData(page, size)
     },
     showAddNew() {
       this.formData = {};
