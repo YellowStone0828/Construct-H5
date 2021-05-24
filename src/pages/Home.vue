@@ -96,7 +96,13 @@ export default {
         //   MenuTitle: "部门管理",
         //   MenuPath: "departmentManage",
         // }],
-      }]
+      }, {
+        MenuTitle: "项目管理",
+        Icon: "project",
+        MenuID: 2,
+        MenuPath: "projectManage",
+      }
+      ]
     }
   },
   mounted() {

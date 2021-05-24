@@ -7,7 +7,7 @@
       <a-form-model ref="searchForm" :model="searchData">
         <a-row>
           <a-col :span="10">
-            <a-form-model-item label="姓名" prop="name" :labelCol="{span:3}" :wrapperCol="{span:17}">
+            <a-form-model-item label="姓名" prop="name" :labelCol="{span:4}" :wrapperCol="{span:16}">
               <a-input v-model="searchData.name"/>
             </a-form-model-item>
           </a-col>
@@ -19,7 +19,7 @@
         </a-row>
       </a-form-model>
       <div class="searchButtonArea">
-        <a-button class="searchButton" @click="findData">
+        <a-button class="searchButton" @click="getData">
           查找员工
         </a-button>
       </div>
@@ -211,9 +211,9 @@ export default {
       const pager = { ...this.pagination };
       pager.current = pagination.current - 1;
       this.pagination = pager;
-      this.getData(pager.current);
+      this.getData(null, pager.current);
     },
-    getData(page = 0, size = this.pagination.pageSize) {
+    getData(event, page = 0, size = this.pagination.pageSize) {
       console.log("param", page, size, this.searchData.idNo);
       this.$http.getHttp(`worker/find?page=${page}&size=${size}&name=${this.searchData.name}&idNo=${this.searchData.idNo}`, {}, (res) => {
         console.log("返回结果", res);
@@ -225,9 +225,6 @@ export default {
         }
 
       })
-    },
-    findData(event, page, size) {
-      this.getData(page, size)
     },
     showAddNew() {
       this.formData = {};

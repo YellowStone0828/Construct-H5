@@ -29,6 +29,12 @@ const router = new VueRouter({
                 meta: {title: '员工管理', keepAlive: true},
                 component: (resolve) => require(['@/pages/Admin/WorkerManage.vue'], resolve),
             },
+            {
+                path: '/ProjectManage',
+                name: 'ProjectManage',
+                meta: {title: '项目管理', keepAlive: true},
+                component: (resolve) => require(['@/pages/Admin/ProjectManage.vue'], resolve),
+            },
         ]
     }]
 })
